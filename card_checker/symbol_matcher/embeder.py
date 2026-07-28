@@ -17,8 +17,8 @@ def _feature_print(image_path: Path) -> "Vision.VNFeaturePrintObservation | None
     return results[0] if ok and results else None
 
 def distance(a, b) -> float:
-    ok, dist, _ = b.computeDistanceToObservation_error_(a, None)   # returns float; smaller = more similar
-    return float(dist) if ok else float("inf")
+    ok, dist, _ = b.computeDistanceToFeaturePrintObservation_error_(a, None)   # returns float; smaller = more similar
+    return float(dist)
 
 res = _feature_print("/Users/cadensak/Desktop/cropped/cel25.png_final.png")
-print(res.data())
+#print(res.data())

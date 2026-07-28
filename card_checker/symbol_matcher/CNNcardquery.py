@@ -1,5 +1,6 @@
 from pathlib import Path
-import embeder
+from embeder import _feature_print
+from embeder import distance
 
 def identify_set(card_crop: Path, gallery, k: int = 3, threshold: float = 20.0):
     q = _feature_print(card_crop)
