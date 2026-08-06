@@ -29,7 +29,7 @@ gallery = build_gallery.build_gallery(gallery_pictures,out)
 #img = Image.open("/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/Test2.jpg")
 
 card = None
-
+"""
 for g in range(
     len(os.listdir(dir))
 ):
@@ -40,8 +40,8 @@ for g in range(
         
         card = Card(dir+img_str)
         card.normalize()
-        card.show()
-        #card.find_symbol(gallery)
+        #card.show()
+        card.find_symbol(gallery)
         #card.identify_set(gallery)
         
 with open("git@github.com:CadenSak/Testing_cards/identification.txt","w") as outfile:
@@ -54,9 +54,24 @@ with open("git@github.com:CadenSak/Testing_cards/identification.txt","w") as out
             
 #clear_cache()
 """
-card = Card("git@github.com:CadenSak/Testing_cards/ScanTCG-0062F.jpg")
+card = Card("git@github.com:CadenSak/Testing_cards/ScanTCG-0171F.jpg")
+
 card.normalize()
+card.remove_yellow_border()
 card.show()
+
+"""
+card._img_to_black_white()
+card.show()
+card._localize_symbol()
+card.show()
+card._img_to_black_white()
+card.show()
+card._remove_yellow_border_from_symbol()
+card._symbol_crop()
+card.show()
+card._symbol_save()
+card._check_if_old(gallery)
+"""
 #card.find_symbol(gallery)
 #card.identify_set(gallery)
-"""

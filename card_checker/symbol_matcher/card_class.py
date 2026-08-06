@@ -6,12 +6,19 @@ import CNNcardquery as CNN
 
 cache = "git@github.com:CadenSak/cache/"
 
+
+CONSTANT_COLORS = {"YELLOW":(255,255,0),"CYAN":(0,255,255),"BLUE":(0,50,255)}
+
+
+
+
 class Card:
     """ PRIVATE VARIABLES"""
     __img_base:Image
     _path:Path
     
     __img_modified:Image
+    __border_color:str
 
     __img_modified_width:int
     __img_modified_height:int
@@ -28,10 +35,6 @@ class Card:
 
     __Master_Card_list = []
     """STATIC"""
-
-    YELLOW = (255, 255, 0)
-    """CONSTANT COLORS"""
-
 
     """ PRIVATE API"""
 
@@ -52,9 +55,9 @@ class Card:
 
         #first pass
         if(self.__is_old):
-            crop_amount = (width-85, height - 70, width-40, height - 28)
+             crop_amount = (width-75, height - 70, width-30, height - 18)
         else:
-            crop_amount = (40, height - 70, 85, height - 28)
+             crop_amount = (40, height - 70, 85, height - 28)
 
         self.__img_modified = img_copy.crop(crop_amount)
         #self.__img_modified.show()
@@ -72,14 +75,10 @@ class Card:
         #img_copy.show()
 
         self.__img_modified = img_copy
-
         self._set_new_img_size()
 
     def _symbol_crop(self):
-        left_border_found = False
         img_copy = self.__img_modified
-        center = floor(self.__img_modified_width / 2)
-        line = center
     
         #Find borders of symbol
         crop = self._find_crop()
@@ -162,10 +161,8 @@ class Card:
                     (crount == 1 and side == "bottom") or
                     crount == 4):
 
-                    if(side == "right"):
+                    if(side == "right" or side == "bottom"):
                         crop = line - 3
-                    elif(side == "bottom"):
-                        crop = line
                     else:
                         crop = line + 3
 
@@ -219,13 +216,14 @@ class Card:
             bss.cardTooSmall(self._cache_Image) or
             bss.isSingleColor(self._cache_Image)
         ):
+            print("Card",self.__card_id_number,"is old!")
             self.__is_old = True
         elif(d > 0.70):
             self.__is_old = True
         else:
             False
 
-    def _remove_yellow_border_from_image(self):
+    def _remove_yellow_border_from_symbol(self):
         img_copy = self.__img_modified
 
         bottom_crop = self._find_border_of_symbol("bottom")
@@ -234,14 +232,37 @@ class Card:
 
         self._set_new_img_size()
 
+    def _find_border_color(self):
+        Threshold = 30
+        color = ImageEnhance.Color(self.__img_base)
+        img_copy = color.enhance(10)
+        width, height = img_copy.size
+        check_pixel_width_X = floor(width / 2)
+        check_pixel_length_Y = floor(height / 2)
+        x = 1
+        y = 1
+        color_found = False
+
+        while(not color_found and x < width - 1):
+            pixel_color = img_copy.getpixel((x,check_pixel_length_Y))
+            color , d = bss.find_border_color(pixel_color, CONSTANT_COLORS)
+            if(d < Threshold):
+                print(f"Found border color it's {color}")
+                self.__border_color = color
+            else:
+                x += 1
+            
+
+
+    
     """ PUBLIC API """
 
     def normalize(self):
         color = ImageEnhance.Color(self.__img_base)
         img_copy = color.enhance(10)
-        #img_copy.show()
+        img_copy.show()
         self.__img_modified = img_copy.crop(bss.find_borders_of_card(img_copy))
-        self.__img_modified = self.__img_modified.crop(self._find_crop())
+        #self.__img_modified = self.__img_modified.crop(self._find_crop())
         self._set_new_img_size()
 
     def identify_set(self, gallery):
@@ -256,7 +277,8 @@ class Card:
 
         self._localize_symbol()
         self._img_to_black_white()
-        self._remove_yellow_border_from_image()
+        self._remove_yellow_border_from_symbol()
+        self._symbol_crop()
         self._symbol_crop()
         self._symbol_save()
         self._check_if_old(gallery)
@@ -265,9 +287,14 @@ class Card:
             self.normalize()
             self._localize_symbol()
             self._img_to_black_white()
-            self._remove_yellow_border_from_image()
+            self._remove_yellow_border_from_symbol()
             self._symbol_crop()
             self._symbol_save()
 
     def show(self):
         self.__img_modified.show()
+
+    def remove_yellow_border(self):
+        img_copy = self.__img_modified
+        self.__img_modified = img_copy.crop(bss.find_borders_of_card_picture(img_copy))
+        self._set_new_img_size()
