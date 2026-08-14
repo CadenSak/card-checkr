@@ -26,9 +26,6 @@ class Scan_Type(IntEnum):
 
 
 CC = {
-"""
-Constant color list
-"""
     "YELLOW":(255,255,0),
     "CYAN":(0,255,255),
     "BLUE":(0,0,255),
@@ -324,8 +321,8 @@ class CardScanner:
                 crount += 1
                 line += move_line
                 if(
-                    (crount == 4 and side == "bottom") or
-                    (crount == 2 and side != "bottom")):
+                    (crount == 5 and side == "bottom") or
+                    (crount == 5 and side != "bottom")):
 
                     if(side == "right" or side == "bottom"):
                         crop = line - 1

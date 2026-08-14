@@ -173,11 +173,14 @@ class CardChecker:
             Finds and crops to symbol within normalized card
         """
         card.set_modified_img(card.get_normal_img().crop(self._get_localized_symbol_crop(card)))
+
         card.set_modified_img(self._modified_card_img_to_black_white(card))
+
         card.set_modified_img(card.get_modified_img().crop(self._find_borders_of_symbol(card)))
+
         card._symbol_save()
 
-    def get_card_set(self, img_path_as_str:str, gallery) -> tuple[str,float]:
+    def get_card_set(self, img_path_as_str:str, gallery:list[dict]) -> tuple[str,float]:
         """
             default card pipe line
         """
@@ -187,11 +190,12 @@ class CardChecker:
         self.crop_card_picture(card)
         self.find_symbol_on_card(card)
         card.set_modified_img(card.get_modified_img().crop(self._find_borders_of_symbol(card)))
-        card._check_if_old(gallery)
+        card._check_if_old(gallery[0])
         if(card.get_is_old()):
             self.find_symbol_on_card(card)
-
-        card.identify_set(gallery)
+            card.identify_set(gallery[1])
+        else:
+            card.identify_set(gallery[0])
 
         _id = card.get_ID()
         print("DEBUG : symbol found",_id["set"],"distance is",_id["distance"])

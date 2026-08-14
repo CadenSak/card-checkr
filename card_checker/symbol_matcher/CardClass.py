@@ -7,6 +7,13 @@ import CNNcardquery as CNN
 
 cache = "git@github.com:CadenSak/cache/"
 
+CONSTANT_COLORS = {
+    "YELLOW":(255,255,0),
+    "CYAN":(0,255,255),
+    "BLUE":(0,0,255),
+    #"GREY":(127,127,127)
+    }
+
 class Card:
     _x:int
     """
@@ -75,7 +82,7 @@ class Card:
         except Exception as e:
             print(e)
 
-    def _check_if_old(self, gallery):
+    def _check_if_old(self, gallery:dict):
         """ 
             Makes best guess at age of symbol using aspect ratio size of symbol color of symbol
             and by checking against list of known symbols
