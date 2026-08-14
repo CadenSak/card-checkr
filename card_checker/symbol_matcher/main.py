@@ -1,7 +1,8 @@
 import build_gallery
 from pathlib import Path
 import os, shutil
-from card_class import Card
+from CardClass import Card
+import CardChecker
 
 def clear_cache():
     folder = cache
@@ -16,7 +17,6 @@ def clear_cache():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
     print("Cleared Cache")
 
-
 dir = "/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/"
 
 cache = "git@github.com:CadenSak/cache/"
@@ -24,25 +24,22 @@ cache = "git@github.com:CadenSak/cache/"
 gallery_pictures = Path("git@github.com:CadenSak/card-checkr.git/set_symbols/pokemon/")
 out = Path("git@github.com:CadenSak/card-checkr.git/set_symbols/out.sym")
 gallery = build_gallery.build_gallery(gallery_pictures,out)
+mod = CardChecker.CardChecker()
+
 
 #print(gallery)
 #img = Image.open("/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/Test2.jpg")
 
 card = None
-"""
+
 for g in range(
     len(os.listdir(dir))
-):
+    ):
     img_str = str(os.listdir(dir)[g])
     if(img_str[-4:] == '.jpg'): 
 
-        #start by assuming generation of card is post sun/moon
-        
-        card = Card(dir+img_str)
-        card.normalize()
-        #card.show()
-        card.find_symbol(gallery)
-        #card.identify_set(gallery)
+        mod.get_card_set(dir+img_str, gallery)
+
         
 with open("git@github.com:CadenSak/Testing_cards/identification.txt","w") as outfile:
     card_list = card.get_card_list()
@@ -51,27 +48,3 @@ with open("git@github.com:CadenSak/Testing_cards/identification.txt","w") as out
             outfile.write(f"{card_list[card][0]}: {card_list[card][1]["set"]} : {card_list[card][1]["distance"]}\n")
         else:
             outfile.write(f"{card_list[card][0]}: unknown\n")
-            
-#clear_cache()
-"""
-card = Card("git@github.com:CadenSak/Testing_cards/ScanTCG-0171F.jpg")
-
-card.normalize()
-card.remove_yellow_border()
-card.show()
-
-"""
-card._img_to_black_white()
-card.show()
-card._localize_symbol()
-card.show()
-card._img_to_black_white()
-card.show()
-card._remove_yellow_border_from_symbol()
-card._symbol_crop()
-card.show()
-card._symbol_save()
-card._check_if_old(gallery)
-"""
-#card.find_symbol(gallery)
-#card.identify_set(gallery)
