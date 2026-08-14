@@ -17,7 +17,7 @@ def clear_cache():
             print('Failed to delete %s. Reason: %s' % (file_path, e))
     print("Cleared Cache")
 
-dir = "/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/card-checkr.git/"
+dir = "/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/"
 
 cache = "git@github.com:CadenSak/cache/"
 
@@ -34,7 +34,7 @@ mod = CardChecker.CardChecker()
 #img = Image.open("/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/Test2.jpg")
 
 card = None
-"""
+
 for g in range(
     len(os.listdir(dir))
     ):
@@ -53,8 +53,8 @@ try:
                 outfile.write(f"{card_list[card][0]}: unknown\n")
 except Exception as e:
     print(e)
-"""
 
+"""
 path = '/Users/cadensak/card-checkr/git@github.com:CadenSak/Testing_cards/ScanTCG-0027F.jpg'
 card = Card(path)
 mod.normalize(card)
@@ -63,4 +63,4 @@ mod.find_symbol_on_card(card)
 card.set_modified_img(card.get_modified_img().crop(mod._find_borders_of_symbol(card)))
 card._check_if_old(gallery[0])
 if(card.get_is_old()):
-    mod.find_symbol_on_card(card)
+    mod.find_symbol_on_card(card)"""
