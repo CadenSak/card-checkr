@@ -4,7 +4,7 @@
 
 ## About the Project
 
-    Card-Checker is a python module that atempts to locate and identify set symbols on pokemon trading cards. This was originally created as a project to solve an issue in a card processing application. This module is intended for anyone who is creating card matching applications for trading cards, specificly in this case, pokemon cards.
+Card-Checker is a python module that atempts to locate and identify set symbols on pokemon trading cards. This was originally created as a project to solve an issue in a card processing application. This module is intended for anyone who is creating card matching applications for trading cards, specificly in this case, pokemon cards.
     
 ## Built With
 - [Python](https://www.python.org)
