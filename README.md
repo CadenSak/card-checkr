@@ -16,7 +16,7 @@ Card-Checker is a python module that atempts to locate and identify set symbols 
 - [NSData] (https://developer.apple.com/documentation/foundation/nsdata)
 
 ## Usage
-    Card-Checkr is works best on card scans from a Fujitsu 8170 as that is the machine that I used however any scan that has the card in the center of the image should work with it.
+Card-Checkr is works best on card scans from a Fujitsu 8170 as that is the machine that I used however any scan that has the card in the center of the image should work with it.
 
     1. Create a gallery of the set symbols you want to look for to do this create a call like
         gallery_pictures_example = Path(Path/to/Images)
@@ -26,7 +26,7 @@ Card-Checker is a python module that atempts to locate and identify set symbols 
 
 
 ## License
-    Feel free to use in any projects you want and change this in any way you see fit!
+Feel free to use in any projects you want and change this in any way you see fit!
 
 ## Contact
 **Caden Sak**
