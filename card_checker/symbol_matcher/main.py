@@ -24,8 +24,8 @@ cache = "git@github.com:CadenSak/cache/"
 gallery_pictures_new = Path("git@github.com:CadenSak/card-checkr.git/set_symbols/pokemon/SM-SWSH/")
 gallery_pictures_old = Path("git@github.com:CadenSak/card-checkr.git/set_symbols/pokemon/BW-XY-EARLY/")
 out = Path("git@github.com:CadenSak/card-checkr.git/set_symbols/out.sym")
-gallery_new = build_gallery.build_gallery(gallery_pictures_new,out)
-gallery_old = build_gallery.build_gallery(gallery_pictures_old,out)
+gallery_new = build_gallery.build_gallery(gallery_pictures_new)
+gallery_old = build_gallery.build_gallery(gallery_pictures_old)
 gallery = [gallery_new,gallery_old]
 mod = CardChecker.CardChecker()
 
